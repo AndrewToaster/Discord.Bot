@@ -10,7 +10,7 @@ namespace Discord.Bot
     /// The base class of Discord bots, using a generic command handler
     /// </summary>
     /// <typeparam name="TCommandHandler">A command handler used for commands</typeparam>
-    public interface IDiscordBot<TCommandHandler> where TCommandHandler : ICommandHandler
+    public interface IDiscordBot<out TCommandHandler> where TCommandHandler : ICommandHandler
     {
         /// <summary>
         /// The base client

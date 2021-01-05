@@ -23,12 +23,6 @@ namespace Discord.Bot
         Task HandleCommandAsync(SocketUserMessage message);
 
         /// <summary>
-        /// Callback used for Initializing, called when using <see cref="DiscordBot.StartAsync(string)"/>
-        /// </summary>
-        /// <returns></returns>
-        Task InitializeAsync(IDiscordBot bot);
-
-        /// <summary>
         /// Callback used for registering <see cref="ModuleBase"/>
         /// </summary>
         /// <param name="t">The type to register</param>

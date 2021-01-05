@@ -38,12 +38,13 @@ namespace Discord.Bot.PreBuilt
         /// <param name="moduleAssembly">Assembly where command modules are stored, this will mostly be <see cref="Assembly.GetExecutingAssembly"/></param>
         /// <param name="client">The client to register event callbacks</param>
         /// <param name="config">The configuration for <see cref="CommandService"/>, leave null for default</param>
-        public SimpleCommandHandler(string prefix, Assembly moduleAssembly, CommandServiceConfig config = null)
+        public SimpleCommandHandler(string prefix, IDiscordBot bot, Assembly moduleAssembly, CommandServiceConfig config = null)
         {
             Prefix = prefix;
             config ??= new CommandServiceConfig { IgnoreExtraArgs = true, CaseSensitiveCommands = false, DefaultRunMode = RunMode.Async };
             _modAssembly = moduleAssembly;
             _service = new CommandService(config);
+            InitializeAsync(bot).Wait();
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace Discord.Bot.PreBuilt
         /// Initializes the command handler, creating callbacks and registering <see cref="ModuleBase"/>s
         /// </summary>
         /// <returns></returns>
-        public async Task InitializeAsync(IDiscordBot bot)
+        private async Task InitializeAsync(IDiscordBot bot)
         {
             _bot = bot;
             _serviceProvider = ServiceCreator.BuildCmdService(_bot);
