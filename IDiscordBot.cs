@@ -10,23 +10,12 @@ namespace Discord.Bot
     /// The base class of Discord bots, using a generic command handler
     /// </summary>
     /// <typeparam name="TCommandHandler">A command handler used for commands</typeparam>
-    public interface IDiscordBot<TCommandHandler> : IDiscordBot where TCommandHandler : ICommandHandler
-    {
-        /// <summary>
-        /// The command handler used for commands
-        /// </summary>
-        public new TCommandHandler CommandHandler { get; protected set; }
-    }
-
-    /// <summary>
-    /// The base class of Discord bots
-    /// </summary>
-    public interface IDiscordBot
+    public interface IDiscordBot<TCommandHandler> where TCommandHandler : ICommandHandler
     {
         /// <summary>
         /// The base client
         /// </summary>
-        public DiscordSocketClient Client { get; protected set; }
+        public DiscordSocketClient Client { get; }
 
         /// <summary>
         /// The logger used for logging messages
@@ -36,7 +25,7 @@ namespace Discord.Bot
         /// <summary>
         /// The command handler used for commands
         /// </summary>
-        public ICommandHandler CommandHandler { get; protected set; }
+        public TCommandHandler CommandHandler { get; }
 
         /// <summary>
         /// Starts the client with a specified token
@@ -48,5 +37,12 @@ namespace Discord.Bot
             await Client.LoginAsync(TokenType.Bot, token);
             await Client.StartAsync();
         }
+    }
+
+    /// <summary>
+    /// The base class of Discord bots
+    /// </summary>
+    public interface IDiscordBot : IDiscordBot<ICommandHandler>
+    {
     }
 }

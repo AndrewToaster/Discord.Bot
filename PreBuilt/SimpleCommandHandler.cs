@@ -60,7 +60,7 @@ namespace Discord.Bot.PreBuilt
 
             if (!Utils.MessagePrefixCheck(message, _client, Prefix, ref prefixOffset))
             {
-                await _bot.Logger.Log("Failed prefix check on message '" + message.Content + "'", LogSeverity.Verbose);
+                _bot.Logger.Log("Failed prefix check on message '" + message.Content + "'", LogSeverity.Verbose);
                 return;
             }
 
@@ -72,7 +72,7 @@ namespace Discord.Bot.PreBuilt
                 switch (result.Error)
                 {
                     case CommandError.UnknownCommand:
-                        await _bot.Logger.Log("Unknown command '" + message.Content + "'", LogSeverity.Verbose);
+                        _bot.Logger.Log("Unknown command '" + message.Content + "'", LogSeverity.Verbose);
                         return;
 
                     default:
