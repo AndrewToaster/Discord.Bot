@@ -38,11 +38,4 @@ namespace Discord.Bot
             await Client.StartAsync();
         }
     }
-
-    /// <summary>
-    /// The base class of Discord bots
-    /// </summary>
-    public interface IDiscordBot : IDiscordBot<ICommandHandler>
-    {
-    }
 }

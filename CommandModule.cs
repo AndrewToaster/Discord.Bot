@@ -17,17 +17,17 @@ namespace Discord.Bot
         /// <summary>
         /// Returns the <see cref="DiscordBot"/> passed into <see cref="InjectedProvider"/>, <see langword="null"/> if empty
         /// </summary>
-        public IDiscordBot InjectedBot { get => InjectedProvider.GetService<IDiscordBot>(); }
+        public IDiscordBot<ICommandHandler> InjectedBot { get => InjectedProvider.GetService<IDiscordBot<ICommandHandler>>(); }
     }
 
     /// <summary>
     /// An extended <see cref="ModuleBase{SocketCommandContext}"/> using a generic bot
     /// </summary>
-    public abstract class CommandModule<TBot> : CommandModule where TBot : IDiscordBot
+    public abstract class CommandModule<TBot> : CommandModule where TBot : IDiscordBot<ICommandHandler>
     {
         /// <summary>
         /// Returns the <typeparamref name="TBot"/> passed into <see cref="InjectedProvider"/>, <see langword="null"/> if empty or incorrect type
         /// </summary>
-        public new TBot InjectedBot { get => (TBot)InjectedProvider.GetService<IDiscordBot>(); }
+        public new TBot InjectedBot { get => (TBot)InjectedProvider.GetService<IDiscordBot<ICommandHandler>>(); }
     }
 }

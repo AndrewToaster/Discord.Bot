@@ -12,7 +12,7 @@ namespace Discord.Bot.PreBuilt
     /// </summary>
     public sealed class SimpleCommandHandler : ICommandHandler
     {
-        private IDiscordBot _bot;
+        private IDiscordBot<ICommandHandler> _bot;
         private readonly CommandService _service;
         private IServiceProvider _serviceProvider;
         private readonly Assembly _modAssembly;
@@ -38,7 +38,7 @@ namespace Discord.Bot.PreBuilt
         /// <param name="moduleAssembly">Assembly where command modules are stored, this will mostly be <see cref="Assembly.GetExecutingAssembly"/></param>
         /// <param name="client">The client to register event callbacks</param>
         /// <param name="config">The configuration for <see cref="CommandService"/>, leave null for default</param>
-        public SimpleCommandHandler(string prefix, IDiscordBot bot, Assembly moduleAssembly, CommandServiceConfig config = null)
+        public SimpleCommandHandler(string prefix, IDiscordBot<ICommandHandler> bot, Assembly moduleAssembly, CommandServiceConfig config = null)
         {
             Prefix = prefix;
             config ??= new CommandServiceConfig { IgnoreExtraArgs = true, CaseSensitiveCommands = false, DefaultRunMode = RunMode.Async };
@@ -87,7 +87,7 @@ namespace Discord.Bot.PreBuilt
         /// Initializes the command handler, creating callbacks and registering <see cref="ModuleBase"/>s
         /// </summary>
         /// <returns></returns>
-        private async Task InitializeAsync(IDiscordBot bot)
+        private async Task InitializeAsync(IDiscordBot<ICommandHandler> bot)
         {
             _bot = bot;
             _serviceProvider = ServiceCreator.BuildCmdService(_bot);
@@ -159,7 +159,7 @@ namespace Discord.Bot.PreBuilt
         /// <param name="msg">The message to check</param>
         /// <returns></returns>
         internal async Task SafeHandle(SocketMessage msg)
-        {
+         {
             if (!(msg is SocketUserMessage uMsg))
             {
                 return;

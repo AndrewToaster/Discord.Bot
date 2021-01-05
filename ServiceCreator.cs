@@ -15,7 +15,7 @@ namespace Discord.Bot
         /// </summary>
         /// <param name="bot">The bot to add as a singleton</param>
         /// <returns>The <see cref="IServiceProvider"/> containing the DiscordBot Singleton</returns>
-        public static IServiceProvider BuildCmdService(IDiscordBot bot)
+        public static IServiceProvider BuildCmdService(IDiscordBot<ICommandHandler> bot)
         {
             return new ServiceCollection()
                 .AddSingleton(bot)
