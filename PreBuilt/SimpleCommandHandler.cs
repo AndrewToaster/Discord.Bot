@@ -70,14 +70,32 @@ namespace Discord.Bot.PreBuilt
 
             if (!result.IsSuccess)
             {
+                string msg = "#DEFAULT_MSG";
+
                 switch (result.Error)
                 {
                     case CommandError.UnknownCommand:
-                        _bot.Logger.Log("Unknown command '" + message.Content + "'", LogSeverity.Verbose);
+                        msg = $"Unknown command '{message.Content}'";
+                        _bot.Logger.Log(msg, LogSeverity.Verbose);
+                        await MsgContext.ReplyAsync(msg);
+                        return;
+
+                    case CommandError.MultipleMatches:
+                        msg = "Found multiple commands with same name, tell the programmer!";
+                        _bot.Logger.Log(msg, ConsoleColor.Red);
+                        await MsgContext.ReplyAsync(msg);
+                        return;
+
+                    case CommandError.UnmetPrecondition:
+                        msg = $"You do not meet the required condition:\n```cs\n{result.ErrorReason}\n```";
+                        _bot.Logger.Log(msg, ConsoleColor.Red);
+                        await MsgContext.ReplyAsync(msg);
                         return;
 
                     default:
-                        await MsgContext.ReplyAsync("Oh uh, somebody made a serius fucky wucky. Now i have to to get in the forever box!");
+                        msg = $"Oh uh, somebody made a serious fucky wucky. Now I have to get in the forever box!\n```cs\n{result.GetFullError()}\n```";
+                        _bot.Logger.Log(msg, ConsoleColor.Red);
+                        await MsgContext.ReplyAsync(msg);
                         return;
                 }
             }

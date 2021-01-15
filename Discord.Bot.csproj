@@ -13,10 +13,11 @@
     <PackageProjectUrl>https://github.com/AndrewToaster/Discord.Bot</PackageProjectUrl>
     <RepositoryUrl>https://github.com/AndrewToaster/Discord.Bot</RepositoryUrl>
     <RepositoryType>Source</RepositoryType>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated SimpleCommandHandler to reply with some errors</PackageReleaseNotes>
     <PackageTags>C#, Discord, Discord.NET, Bot, Library, AndrewToasterr</PackageTags>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.5.0</AssemblyVersion>
+    <Version>1.0.5</Version>
+    <FileVersion>1.0.5.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
